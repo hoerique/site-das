@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DataInsight - Transformando Dados em Decisões Estratégicas</title>
+<title> Transformando Dados em Decisões Estratégicas</title>
 <script src="https://cdn.tailwindcss.com/3.4.16"></script>
 <script>tailwind.config={theme:{extend:{colors:{primary:'#2563eb',secondary:'#0f172a'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
 <style>
 :where([class^="ri-"])::before { content: "\f3c2"; }
 body {
-font-family: 'Inter', sans-serif;
+font-family: 'Segoe UI', sans-serif;
 }
 .hero-gradient {
 background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0) 100%);
@@ -92,7 +91,7 @@ transform: translateX(24px);
 <!-- Header -->
 <header class="fixed w-full bg-white shadow-sm z-50">
 <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-<a href="#" class="font-['Pacifico'] text-2xl text-primary">DataInsight</a>
+<a href="/" id="logo" class="font-['Pacifico'] text-2xl text-primary hover:opacity-80 transition-opacity">Sob medida</a>
 <nav class="hidden lg:flex items-center space-x-8">
 <a href="#servicos" class="text-gray-700 hover:text-primary font-medium transition-colors">Serviços</a>
 <a href="#portfolio" class="text-gray-700 hover:text-primary font-medium transition-colors">Portfólio</a>
@@ -593,7 +592,7 @@ Saiba mais
 <div class="container mx-auto px-4">
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 <div>
-<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Sobre a DataInsight</h2>
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Sobre a SOB MEDIDA</h2>
 <p class="text-lg text-gray-700 mb-6">Somos uma empresa especializada em análise de dados e business intelligence, com foco em transformar dados em insights acionáveis para nossos clientes.</p>
 <p class="text-lg text-gray-700 mb-6">Nossa equipe é formada por especialistas em análise de dados, estatística, marketing digital e desenvolvimento de software, com ampla experiência em diversos segmentos de mercado.</p>
 <p class="text-lg text-gray-700 mb-6">Nosso objetivo é democratizar o acesso a análises de dados avançadas, permitindo que empresas de todos os portes tomem decisões mais inteligentes baseadas em informações concretas.</p>
@@ -676,7 +675,7 @@ Saiba mais
 </div>
 <div>
 <p class="font-medium text-gray-900 mb-1">E-mail</p>
-<a href="mailto:contato@datainsight.com.br" class="text-gray-700 hover:text-primary">contato@datainsight.com.br</a>
+<a href="mailto:oheriqueferreira@gmail.com" class="text-gray-700 hover:text-primary">oheriqueferreira@gmail.com</a>
 </div>
 </div>
 <div class="flex items-start mb-6">
@@ -685,7 +684,7 @@ Saiba mais
 </div>
 <div>
 <p class="font-medium text-gray-900 mb-1">Telefone</p>
-<a href="tel:+551199999999" class="text-gray-700 hover:text-primary">(11) 9999-9999</a>
+<a href="tel:+5589981137053" class="text-gray-700 hover:text-primary">(55) 89981137053</a>
 </div>
 </div>
 <div class="flex items-start">
@@ -711,10 +710,10 @@ Saiba mais
 <hr class="my-6 border-gray-200">
 <h3 class="text-xl font-semibold text-gray-900 mb-6">Redes Sociais</h3>
 <div class="flex space-x-4">
-<a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
+<a href="https://www.linkedin.com/company/datainsight" data-readdy="true" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
 <i class="ri-linkedin-fill text-primary"></i>
 </a>
-<a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
+<a href="https://www.instagram.com/oherique_ferreira/" data-readdy="true" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
 <i class="ri-instagram-line text-primary"></i>
 </a>
 <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
@@ -833,6 +832,16 @@ const menuToggle = document.getElementById('menuToggle');
 const mobileMenu = document.getElementById('mobileMenu');
 menuToggle.addEventListener('click', function() {
 mobileMenu.classList.toggle('hidden');
+});
+// Logo Click Handler
+const logo = document.getElementById('logo');
+logo.addEventListener('click', function(e) {
+e.preventDefault();
+if(window.location.pathname === '/') {
+window.location.reload();
+} else {
+window.location.href = '/';
+}
 });
 });
 document.addEventListener('DOMContentLoaded', function() {
