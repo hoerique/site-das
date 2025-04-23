@@ -1,943 +1,870 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataInsight - Transformando Dados em Decisões Estratégicas</title>
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>tailwind.config={theme:{extend:{colors:{primary:'#2563eb',secondary:'#0f172a'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <style>
-        :where([class^="ri-"])::before { content: "\f3c2"; }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .hero-gradient {
-            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0) 100%);
-        }
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: #2563eb;
-        }
-        .custom-checkbox {
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid #d1d5db;
-            border-radius: 4px;
-            position: relative;
-            cursor: pointer;
-        }
-        .custom-checkbox:checked {
-            background-color: #2563eb;
-            border-color: #2563eb;
-        }
-        .custom-checkbox:checked::after {
-            content: '';
-            position: absolute;
-            left: 6px;
-            top: 2px;
-            width: 5px;
-            height: 10px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
-        .custom-switch {
-            position: relative;
-            display: inline-block;
-            width: 48px;
-            height: 24px;
-        }
-        .custom-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #e5e7eb;
-            transition: .4s;
-            border-radius: 24px;
-        }
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-        input:checked + .slider {
-            background-color: #2563eb;
-        }
-        input:checked + .slider:before {
-            transform: translateX(24px);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataInsight - Transformando Dados em Decisões Estratégicas</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#2563eb',secondary:'#0f172a'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+}
+.hero-gradient {
+background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.9) 40%, rgba(255,255,255,0) 100%);
+}
+input:focus, textarea:focus {
+outline: none;
+border-color: #2563eb;
+}
+.custom-checkbox {
+appearance: none;
+width: 20px;
+height: 20px;
+border: 2px solid #d1d5db;
+border-radius: 4px;
+position: relative;
+cursor: pointer;
+}
+.custom-checkbox:checked {
+background-color: #2563eb;
+border-color: #2563eb;
+}
+.custom-checkbox:checked::after {
+content: '';
+position: absolute;
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 48px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #e5e7eb;
+transition: .4s;
+border-radius: 24px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 18px;
+width: 18px;
+left: 3px;
+bottom: 3px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #2563eb;
+}
+input:checked + .slider:before {
+transform: translateX(24px);
+}
+</style>
 </head>
 <body class="bg-white">
-    <!-- Header -->
-    <header class="fixed w-full bg-white shadow-sm z-50">
-        <div class="container mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="#" class="font-['Pacifico'] text-2xl text-primary">Sob Medida</a>
-            
-            <nav class="hidden lg:flex items-center space-x-8">
-                <a href="#servicos" class="text-gray-700 hover:text-primary font-medium transition-colors">Serviços</a>
-                <a href="#portfolio" class="text-gray-700 hover:text-primary font-medium transition-colors">Portfólio</a>
-                <a href="#depoimentos" class="text-gray-700 hover:text-primary font-medium transition-colors">Depoimentos</a>
-                <a href="#sobre" class="text-gray-700 hover:text-primary font-medium transition-colors">Sobre</a>
-                <a href="#blog" class="text-gray-700 hover:text-primary font-medium transition-colors">Blog</a>
-                <a href="#contato" class="text-gray-700 hover:text-primary font-medium transition-colors">Contato</a>
-            </nav>
-            
-            <a href="#contato" class="hidden lg:inline-flex bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap">Solicite um Orçamento</a>
-            
-            <button class="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700" id="menuToggle">
-                <i class="ri-menu-line ri-lg"></i>
-            </button>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobileMenu" class="hidden lg:hidden bg-white w-full border-t">
-            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
-                <a href="#servicos" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Serviços</a>
-                <a href="#portfolio" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Portfólio</a>
-                <a href="#depoimentos" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Depoimentos</a>
-                <a href="#sobre" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Sobre</a>
-                <a href="#blog" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Blog</a>
-                <a href="#contato" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Contato</a>
-                <a href="#contato" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Solicite um Orçamento</a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="relative pt-24 overflow-hidden">
-        <div class="absolute inset-0 w-full h-full" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20data%20visualization%20dashboard%20with%20charts%2C%20graphs%2C%20business%20analytics%20in%20blue%20tones%2C%20abstract%20data%20elements%2C%20professional%20corporate%20style%2C%20clean%20design%2C%20high%20quality%203D%20rendering%20with%20soft%20lighting%20and%20shadows%2C%20minimalist%20style&width=1920&height=1080&seq=hero-bg-1&orientation=landscape'); background-size: cover; background-position: center;"></div>
-        <div class="relative w-full h-full min-h-[600px] flex items-center">
-            <div class="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center">
-                <div class="w-full md:w-1/2 hero-gradient py-12 px-6 md:px-12 rounded-lg">
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Transforme seus dados em decisões estratégicas</h1>
-                    <p class="text-lg text-gray-700 mb-8">Desenvolvemos soluções personalizadas de análise de dados e Business Intelligence para impulsionar o crescimento do seu negócio com insights acionáveis e visualizações impactantes.</p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#portfolio" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Veja um exemplo de dashboard</a>
-                        <a href="#contato" class="bg-white text-primary border border-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-50 transition-colors text-center whitespace-nowrap">Fale com um especialista</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Estatísticas -->
-    <section class="bg-gray-50 py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <p class="text-4xl font-bold text-primary mb-2">98%</p>
-                    <p class="text-gray-700">de satisfação dos clientes</p>
-                </div>
-                <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <p class="text-4xl font-bold text-primary mb-2">+250</p>
-                    <p class="text-gray-700">projetos entregues</p>
-                </div>
-                <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <p class="text-4xl font-bold text-primary mb-2">35%</p>
-                    <p class="text-gray-700">aumento médio em ROI</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Serviços -->
-    <section id="servicos" class="py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nossas Soluções em Análise de Dados</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Oferecemos serviços completos para transformar seus dados em insights valiosos e decisões estratégicas para o seu negócio.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Serviço 1 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-dashboard-line ri-lg text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Dashboards Interativos</h3>
-                    <p class="text-gray-700 mb-4">Criamos painéis personalizados com Power BI, Google Data Studio e Excel para visualização de dados em tempo real.</p>
-                    <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-                        Saiba mais
-                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
-                    </a>
-                </div>
-                
-                <!-- Serviço 2 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-line-chart-line ri-lg text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Análise de Campanhas</h3>
-                    <p class="text-gray-700 mb-4">Automatizamos a análise de campanhas de tráfego pago (Meta Ads, Google Ads) para otimizar seus investimentos.</p>
-                    <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-                        Saiba mais
-                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
-                    </a>
-                </div>
-                
-                <!-- Serviço 3 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-file-chart-line ri-lg text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Relatórios Inteligentes</h3>
-                    <p class="text-gray-700 mb-4">Desenvolvemos relatórios visualmente impactantes que transformam dados complexos em informações claras.</p>
-                    <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-                        Saiba mais
-                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
-                    </a>
-                </div>
-                
-                <!-- Serviço 4 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-lightbulb-line ri-lg text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Consultoria em BI</h3>
-                    <p class="text-gray-700 mb-4">Oferecemos consultoria especializada em inteligência de negócios e definição de indicadores de desempenho (KPIs).</p>
-                    <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-                        Saiba mais
-                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
-                    </a>
-                </div>
-                
-                <!-- Serviço 5 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-database-2-line ri-lg text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Integração de Dados</h3>
-                    <p class="text-gray-700 mb-4">Integramos diferentes fontes de dados (SQL, APIs, Google Sheets, Excel) para uma visão unificada do seu negócio.</p>
-                    <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-                        Saiba mais
-                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
-                    </a>
-                </div>
-                
-                <!-- Serviço 6 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                    <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                        <i class="ri-shopping-bag-line ri-lg text-primary"></i>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Produtos Digitais</h3>
-                    <p class="text-gray-700 mb-4">Criamos templates, eBooks e pacotes prontos para gestores de tráfego e analistas de dados.</p>
-                    <a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
-                        Saiba mais
-                        <i class="ri-arrow-right-line ri-sm ml-1"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Como Trabalhamos -->
-    <section class="bg-gray-50 py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Como Trabalhamos</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Nossa metodologia garante resultados eficientes e alinhados às suas necessidades de negócio.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-2xl font-bold text-primary">1</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Diagnóstico</h3>
-                    <p class="text-gray-700">Entendemos suas necessidades e objetivos de negócio para definir os melhores indicadores.</p>
-                </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-2xl font-bold text-primary">2</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Planejamento</h3>
-                    <p class="text-gray-700">Desenvolvemos um plano estratégico para coleta, integração e visualização dos dados.</p>
-                </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-2xl font-bold text-primary">3</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Implementação</h3>
-                    <p class="text-gray-700">Criamos as soluções personalizadas e integramos com suas fontes de dados existentes.</p>
-                </div>
-                
-                <div class="bg-white p-8 rounded-lg shadow-sm text-center">
-                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <span class="text-2xl font-bold text-primary">4</span>
-                    </div>
-                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Acompanhamento</h3>
-                    <p class="text-gray-700">Oferecemos suporte contínuo e ajustes para garantir que você obtenha o máximo valor dos seus dados.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfólio -->
-    <section id="portfolio" class="py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nosso Portfólio</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Conheça alguns dos nossos projetos de sucesso em análise de dados e visualização.</p>
-            </div>
-            
-            <div class="mb-8 flex flex-wrap justify-center gap-4">
-                <button class="bg-primary text-white px-5 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap portfolio-filter active" data-filter="all">Todos</button>
-                <button class="bg-white text-gray-700 border border-gray-300 px-5 py-2 !rounded-button font-medium hover:bg-gray-50 transition-colors whitespace-nowrap portfolio-filter" data-filter="dashboard">Dashboards</button>
-                <button class="bg-white text-gray-700 border border-gray-300 px-5 py-2 !rounded-button font-medium hover:bg-gray-50 transition-colors whitespace-nowrap portfolio-filter" data-filter="relatorio">Relatórios</button>
-                <button class="bg-white text-gray-700 border border-gray-300 px-5 py-2 !rounded-button font-medium hover:bg-gray-50 transition-colors whitespace-nowrap portfolio-filter" data-filter="integracao">Integrações</button>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Projeto 1 -->
-                <div class="portfolio-item" data-category="dashboard">
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="h-60 overflow-hidden">
-                            <img src="https://readdy.ai/api/search-image?query=professional%20business%20dashboard%20with%20KPI%20metrics%2C%20sales%20analytics%2C%20clean%20modern%20design%20with%20blue%20charts%20and%20graphs%2C%20corporate%20style%20visualization%2C%20high%20quality%20rendering&width=600&height=400&seq=portfolio-1&orientation=landscape" alt="Dashboard de Vendas" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Dashboard de Vendas</h3>
-                            <p class="text-gray-700 mb-4">Dashboard interativo para análise de performance de vendas com segmentação por região, produto e vendedor.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">Power BI</span>
-                                <a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Projeto 2 -->
-                <div class="portfolio-item" data-category="relatorio">
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="h-60 overflow-hidden">
-                            <img src="https://readdy.ai/api/search-image?query=digital%20marketing%20report%20with%20social%20media%20metrics%2C%20campaign%20performance%20data%2C%20ROI%20analysis%2C%20modern%20clean%20design%20with%20graphs%20and%20charts%2C%20professional%20business%20report&width=600&height=400&seq=portfolio-2&orientation=landscape" alt="Relatório de Marketing" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Relatório de Marketing</h3>
-                            <p class="text-gray-700 mb-4">Relatório automatizado para análise de campanhas de marketing digital com métricas de ROI e conversão.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">Google Data Studio</span>
-                                <a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Projeto 3 -->
-                <div class="portfolio-item" data-category="integracao">
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="h-60 overflow-hidden">
-                            <img src="https://readdy.ai/api/search-image?query=data%20integration%20system%20connecting%20multiple%20sources%2C%20API%20connections%2C%20database%20visualization%2C%20modern%20tech%20interface%20with%20blue%20elements%2C%20professional%20business%20software&width=600&height=400&seq=portfolio-3&orientation=landscape" alt="Integração de Dados" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Integração de Dados</h3>
-                            <p class="text-gray-700 mb-4">Sistema de integração entre ERP, CRM e plataformas de e-commerce para visão unificada do negócio.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">SQL + APIs</span>
-                                <a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Projeto 4 -->
-                <div class="portfolio-item" data-category="dashboard">
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="h-60 overflow-hidden">
-                            <img src="https://readdy.ai/api/search-image?query=financial%20analytics%20dashboard%20with%20budget%20tracking%2C%20expense%20analysis%2C%20profit%20margins%2C%20modern%20clean%20design%20with%20charts%20and%20financial%20metrics%2C%20professional%20business%20dashboard&width=600&height=400&seq=portfolio-4&orientation=landscape" alt="Dashboard Financeiro" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Dashboard Financeiro</h3>
-                            <p class="text-gray-700 mb-4">Painel de controle financeiro com análise de fluxo de caixa, margens e projeções para tomada de decisão.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">Power BI + Excel</span>
-                                <a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Projeto 5 -->
-                <div class="portfolio-item" data-category="relatorio">
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="h-60 overflow-hidden">
-                            <img src="https://readdy.ai/api/search-image?query=e-commerce%20performance%20report%20with%20sales%20analytics%2C%20customer%20behavior%20data%2C%20conversion%20funnel%2C%20modern%20clean%20design%20with%20charts%20and%20metrics%2C%20professional%20business%20report&width=600&height=400&seq=portfolio-5&orientation=landscape" alt="Análise de E-commerce" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Análise de E-commerce</h3>
-                            <p class="text-gray-700 mb-4">Relatório completo de performance de e-commerce com análise de funil de vendas e comportamento do cliente.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">Google Analytics + Data Studio</span>
-                                <a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Projeto 6 -->
-                <div class="portfolio-item" data-category="integracao">
-                    <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
-                        <div class="h-60 overflow-hidden">
-                            <img src="https://readdy.ai/api/search-image?query=automated%20reporting%20system%20with%20data%20pipeline%20visualization%2C%20ETL%20process%2C%20scheduled%20reports%2C%20modern%20tech%20interface%20with%20blue%20elements%2C%20professional%20business%20software&width=600&height=400&seq=portfolio-6&orientation=landscape" alt="Automação de Relatórios" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Automação de Relatórios</h3>
-                            <p class="text-gray-700 mb-4">Sistema de automação para geração e distribuição de relatórios periódicos para diferentes departamentos.</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-sm text-gray-500">Python + Google Sheets</span>
-                                <a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="#" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Ver todos os projetos</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="bg-primary py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Pronto para transformar seus dados em resultados?</h2>
-                <p class="text-lg text-blue-100 mb-8">Entre em contato conosco para uma consulta gratuita e descubra como podemos ajudar seu negócio a tomar decisões mais inteligentes baseadas em dados.</p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#contato" class="bg-white text-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-100 transition-colors text-center whitespace-nowrap">Solicite um orçamento</a>
-                    <a href="#" class="bg-transparent text-white border border-white px-8 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Agende uma demonstração</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Depoimentos -->
-    <section id="depoimentos" class="py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">O que nossos clientes dizem</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Veja como nossas soluções têm ajudado empresas a transformar dados em resultados concretos.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Depoimento 1 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-                    <div class="flex items-center mb-6">
-                        <div class="text-primary">
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-6">"Os dashboards desenvolvidos pela equipe transformaram completamente nossa visão sobre o negócio. Conseguimos identificar oportunidades que antes passavam despercebidas e aumentamos nossa eficiência operacional em 30%."</p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-gray-500 font-medium">RM</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Ricardo Mendes</h4>
-                            <p class="text-sm text-gray-600">Diretor Comercial, TechSolutions</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Depoimento 2 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-                    <div class="flex items-center mb-6">
-                        <div class="text-primary">
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-6">"A análise automatizada de nossas campanhas de marketing trouxe insights valiosos que nos permitiram otimizar nosso investimento em mídia. O ROI aumentou em 45% no primeiro trimestre após a implementação."</p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-gray-500 font-medium">CM</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">Carolina Martins</h4>
-                            <p class="text-sm text-gray-600">CMO, E-commerce Brasil</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Depoimento 3 -->
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-                    <div class="flex items-center mb-6">
-                        <div class="text-primary">
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                            <i class="ri-star-fill ri-lg"></i>
-                        </div>
-                    </div>
-                    <p class="text-gray-700 mb-6">"A integração de dados que realizaram entre nossos sistemas foi impecável. Agora temos uma visão unificada do cliente e conseguimos personalizar nossas estratégias com muito mais precisão."</p>
-                    <div class="flex items-center">
-                        <div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
-                            <span class="text-gray-500 font-medium">AF</span>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-gray-900">André Ferreira</h4>
-                            <p class="text-sm text-gray-600">CTO, Fintech Soluções</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Recursos Gratuitos -->
-    <section class="bg-gray-50 py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Recursos Gratuitos</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Acesse nossos materiais gratuitos para aprimorar suas habilidades em análise de dados.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Recurso 1 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=professional%20e-book%20cover%20about%20data%20visualization%20best%20practices%2C%20modern%20design%20with%20blue%20elements%2C%20business%20analytics%20theme%2C%20high%20quality%20rendering&width=600&height=400&seq=resource-1&orientation=landscape" alt="E-book Visualização de Dados" class="w-full h-full object-cover object-top">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">E-book: Visualização de Dados</h3>
-                        <p class="text-gray-700 mb-4">Aprenda as melhores práticas para criar visualizações de dados eficientes e impactantes.</p>
-                        <a href="#" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Baixar grátis</a>
-                    </div>
-                </div>
-                
-                <!-- Recurso 2 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=professional%20template%20preview%20for%20Excel%20dashboard%2C%20business%20analytics%20template%20with%20charts%20and%20KPIs%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=resource-2&orientation=landscape" alt="Template Excel" class="w-full h-full object-cover object-top">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Template: Dashboard Excel</h3>
-                        <p class="text-gray-700 mb-4">Template pronto para criar dashboards profissionais no Excel com fórmulas e gráficos dinâmicos.</p>
-                        <a href="#" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Baixar grátis</a>
-                    </div>
-                </div>
-                
-                <!-- Recurso 3 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=professional%20webinar%20preview%20about%20digital%20marketing%20analytics%2C%20online%20course%20with%20data%20charts%20and%20metrics%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=resource-3&orientation=landscape" alt="Webinar Marketing Digital" class="w-full h-full object-cover object-top">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Webinar: Análise de Marketing</h3>
-                        <p class="text-gray-700 mb-4">Assista nossa masterclass sobre como analisar e otimizar campanhas de marketing digital.</p>
-                        <a href="#" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Assistir agora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Blog -->
-    <section id="blog" class="py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Blog e Insights</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Confira nossos artigos mais recentes sobre análise de dados, business intelligence e performance digital.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Artigo 1 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=professional%20blog%20post%20image%20about%20data-driven%20decision%20making%2C%20business%20analytics%20concept%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=blog-1&orientation=landscape" alt="Tomada de Decisão" class="w-full h-full object-cover object-top">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="text-sm text-gray-500">23 Abr, 2025</span>
-                            <span class="mx-2 text-gray-300">•</span>
-                            <span class="text-sm text-gray-500">8 min de leitura</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Como implementar uma cultura de decisões baseadas em dados</h3>
-                        <p class="text-gray-700 mb-4">Descubra estratégias eficientes para transformar sua empresa em uma organização orientada por dados...</p>
-                        <a href="#" class="text-primary font-medium hover:underline">Ler mais</a>
-                    </div>
-                </div>
-                
-                <!-- Artigo 2 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=professional%20blog%20post%20image%20about%20KPI%20dashboard%20design%2C%20business%20metrics%20visualization%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=blog-2&orientation=landscape" alt="KPIs Essenciais" class="w-full h-full object-cover object-top">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="text-sm text-gray-500">15 Abr, 2025</span>
-                            <span class="mx-2 text-gray-300">•</span>
-                            <span class="text-sm text-gray-500">6 min de leitura</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">10 KPIs essenciais para monitorar em seu e-commerce</h3>
-                        <p class="text-gray-700 mb-4">Conheça os indicadores-chave que todo gestor de e-commerce deve acompanhar para maximizar resultados...</p>
-                        <a href="#" class="text-primary font-medium hover:underline">Ler mais</a>
-                    </div>
-                </div>
-                
-                <!-- Artigo 3 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-                    <div class="h-48 overflow-hidden">
-                        <img src="https://readdy.ai/api/search-image?query=professional%20blog%20post%20image%20about%20digital%20marketing%20analytics%2C%20campaign%20performance%20data%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=blog-3&orientation=landscape" alt="Marketing Digital" class="w-full h-full object-cover object-top">
-                    </div>
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <span class="text-sm text-gray-500">8 Abr, 2025</span>
-                            <span class="mx-2 text-gray-300">•</span>
-                            <span class="text-sm text-gray-500">5 min de leitura</span>
-                        </div>
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Como otimizar suas campanhas de Google Ads com análise de dados</h3>
-                        <p class="text-gray-700 mb-4">Aprenda técnicas avançadas para analisar e melhorar o desempenho das suas campanhas de tráfego pago...</p>
-                        <a href="#" class="text-primary font-medium hover:underline">Ler mais</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <a href="#" class="bg-white text-primary border border-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-50 transition-colors inline-block whitespace-nowrap">Ver todos os artigos</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sobre Nós -->
-    <section id="sobre" class="bg-gray-50 py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Sobre a DataInsight</h2>
-                    <p class="text-lg text-gray-700 mb-6">Somos uma empresa especializada em análise de dados e business intelligence, com foco em transformar dados em insights acionáveis para nossos clientes.</p>
-                    <p class="text-lg text-gray-700 mb-6">Nossa equipe é formada por especialistas em análise de dados, estatística, marketing digital e desenvolvimento de software, com ampla experiência em diversos segmentos de mercado.</p>
-                    <p class="text-lg text-gray-700 mb-6">Nosso objetivo é democratizar o acesso a análises de dados avançadas, permitindo que empresas de todos os portes tomem decisões mais inteligentes baseadas em informações concretas.</p>
-                    <div class="flex flex-col sm:flex-row gap-4 mt-8">
-                        <a href="#contato" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Entre em contato</a>
-                        <a href="#" class="bg-white text-primary border border-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-50 transition-colors text-center whitespace-nowrap">Conheça nossa equipe</a>
-                    </div>
-                </div>
-                <div>
-                    <img src="https://readdy.ai/api/search-image?query=professional%20data%20analytics%20team%20working%20together%20in%20modern%20office%2C%20diverse%20team%20analyzing%20charts%20on%20screens%2C%20business%20meeting%20with%20data%20visualization%2C%20high%20quality%20corporate%20photography%20style&width=800&height=600&seq=about-us&orientation=landscape" alt="Nossa equipe" class="w-full h-auto rounded-lg shadow-md">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contato -->
-    <section id="contato" class="py-16 md:py-24">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Entre em Contato</h2>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">Estamos prontos para ajudar sua empresa a transformar dados em resultados. Preencha o formulário abaixo e entraremos em contato em até 24 horas.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-                    <form>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label for="nome" class="block text-gray-700 font-medium mb-2">Nome completo</label>
-                                <input type="text" id="nome" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="Seu nome">
-                            </div>
-                            <div>
-                                <label for="email" class="block text-gray-700 font-medium mb-2">E-mail</label>
-                                <input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="seu@email.com">
-                            </div>
-                        </div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label for="telefone" class="block text-gray-700 font-medium mb-2">Telefone</label>
-                                <input type="tel" id="telefone" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="(00) 00000-0000">
-                            </div>
-                            <div>
-                                <label for="empresa" class="block text-gray-700 font-medium mb-2">Empresa</label>
-                                <input type="text" id="empresa" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="Nome da sua empresa">
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label for="servico" class="block text-gray-700 font-medium mb-2">Serviço de interesse</label>
-                            <div class="relative">
-                                <select id="servico" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700 appearance-none pr-8">
-                                    <option value="" selected disabled>Selecione uma opção</option>
-                                    <option value="dashboards">Dashboards Interativos</option>
-                                    <option value="analise">Análise de Campanhas</option>
-                                    <option value="relatorios">Relatórios Inteligentes</option>
-                                    <option value="consultoria">Consultoria em BI</option>
-                                    <option value="integracao">Integração de Dados</option>
-                                    <option value="produtos">Produtos Digitais</option>
-                                    <option value="outros">Outros</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                                    <i class="ri-arrow-down-s-line text-gray-500"></i>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label for="mensagem" class="block text-gray-700 font-medium mb-2">Mensagem</label>
-                            <textarea id="mensagem" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="Descreva sua necessidade..."></textarea>
-                        </div>
-                        
-                        <div class="flex items-center mb-6">
-                            <input type="checkbox" id="newsletter" class="custom-checkbox">
-                            <label for="newsletter" class="ml-2 text-gray-700">Desejo receber novidades e conteúdos exclusivos por e-mail</label>
-                        </div>
-                        
-                        <button type="submit" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap">Enviar mensagem</button>
-                    </form>
-                </div>
-                
-                <div>
-                    <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 mb-8">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Informações de Contato</h3>
-                        
-                        <div class="flex items-start mb-6">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                                <i class="ri-mail-line text-primary"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-900 mb-1">E-mail</p>
-                                <a href="mailto:contato@datainsight.com.br" class="text-gray-700 hover:text-primary">contato@datainsight.com.br</a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start mb-6">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                                <i class="ri-phone-line text-primary"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-900 mb-1">Telefone</p>
-                                <a href="tel:+551199999999" class="text-gray-700 hover:text-primary">(11) 9999-9999</a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                                <i class="ri-map-pin-line text-primary"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-900 mb-1">Endereço</p>
-                                <p class="text-gray-700">Av. Paulista, 1000, Bela Vista<br>São Paulo - SP, 01310-100</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Horário de Atendimento</h3>
-                        <div class="flex justify-between mb-3">
-                            <span class="text-gray-700">Segunda a Sexta</span>
-                            <span class="font-medium text-gray-900">9h às 18h</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-700">Sábado</span>
-                            <span class="font-medium text-gray-900">9h às 13h</span>
-                        </div>
-                        
-                        <hr class="my-6 border-gray-200">
-                        
-                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Redes Sociais</h3>
-                        <div class="flex space-x-4">
-                            <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
-                                <i class="ri-linkedin-fill text-primary"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
-                                <i class="ri-instagram-line text-primary"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
-                                <i class="ri-youtube-line text-primary"></i>
-                            </a>
-                            <a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
-                                <i class="ri-facebook-fill text-primary"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter -->
-    <section class="bg-gray-50 py-16">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto bg-primary rounded-lg overflow-hidden shadow-md">
-                <div class="p-8 md:p-12">
-                    <div class="text-center mb-8">
-                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Assine nossa newsletter</h2>
-                        <p class="text-blue-100">Receba dicas, insights e novidades sobre análise de dados e business intelligence diretamente no seu e-mail.</p>
-                    </div>
-                    
-                    <form class="flex flex-col md:flex-row gap-4">
-                        <input type="email" placeholder="Seu melhor e-mail" class="flex-grow px-4 py-3 rounded border-none text-gray-700 text-sm">
-                        <button type="submit" class="bg-white text-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition-colors whitespace-nowrap">Inscrever-se</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <div>
-                    <h3 class="font-['Pacifico'] text-2xl mb-6">DataInsight</h3>
-                    <p class="text-gray-400 mb-6">Transformando dados em decisões estratégicas para impulsionar o crescimento do seu negócio.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="ri-linkedin-fill ri-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="ri-instagram-line ri-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="ri-youtube-line ri-lg"></i>
-                        </a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
-                            <i class="ri-facebook-fill ri-lg"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold mb-6">Serviços</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Dashboards Interativos</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Análise de Campanhas</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Relatórios Inteligentes</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Consultoria em BI</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Integração de Dados</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Produtos Digitais</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold mb-6">Links Rápidos</h4>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sobre Nós</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Portfólio</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Recursos Gratuitos</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contato</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Trabalhe Conosco</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-lg font-semibold mb-6">Contato</h4>
-                    <ul class="space-y-3">
-                        <li class="flex items-start">
-                            <i class="ri-map-pin-line ri-lg mr-3 mt-1 text-gray-400"></i>
-                            <span class="text-gray-400">Av. Paulista, 1000, Bela Vista<br>São Paulo - SP, 01310-100</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-phone-line ri-lg mr-3 text-gray-400"></i>
-                            <a href="tel:+551199999999" class="text-gray-400 hover:text-white transition-colors">(11) 9999-9999</a>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ri-mail-line ri-lg mr-3 text-gray-400"></i>
-                            <a href="mailto:contato@datainsight.com.br" class="text-gray-400 hover:text-white transition-colors">contato@datainsight.com.br</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            
-            <hr class="border-gray-800 mb-8">
-            
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-500 mb-4 md:mb-0">© 2025 DataInsight. Todos os direitos reservados.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors">Termos de Uso</a>
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors">Política de Privacidade</a>
-                    <a href="#" class="text-gray-500 hover:text-white transition-colors">Cookies</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Chat Flutuante -->
-    <div class="fixed bottom-6 right-6 z-50">
-        <button class="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors" id="chatButton">
-            <i class="ri-message-3-line ri-lg text-white"></i>
-        </button>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Menu Toggle
-            const menuToggle = document.getElementById('menuToggle');
-            const mobileMenu = document.getElementById('mobileMenu');
-            
-            menuToggle.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Portfolio Filtering
-            const portfolioFilters = document.querySelectorAll('.portfolio-filter');
-            const portfolioItems = document.querySelectorAll('.portfolio-item');
-            
-            portfolioFilters.forEach(filter => {
-                filter.addEventListener('click', function() {
-                    // Remove active class from all filters
-                    portfolioFilters.forEach(f => f.classList.remove('active', 'bg-primary', 'text-white'));
-                    portfolioFilters.forEach(f => f.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300'));
-                    
-                    // Add active class to clicked filter
-                    this.classList.add('active', 'bg-primary', 'text-white');
-                    this.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
-                    
-                    const filterValue = this.getAttribute('data-filter');
-                    
-                    portfolioItems.forEach(item => {
-                        if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    });
-                });
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Chat Button
-            const chatButton = document.getElementById('chatButton');
-            
-            chatButton.addEventListener('click', function() {
-                alert('Funcionalidade de chat em desenvolvimento. Em breve estaremos disponíveis para atendê-lo em tempo real!');
-            });
-        });
-    </script>
+<!-- Header -->
+<header class="fixed w-full bg-white shadow-sm z-50">
+<div class="container mx-auto px-4 py-4 flex items-center justify-between">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">DataInsight</a>
+<nav class="hidden lg:flex items-center space-x-8">
+<a href="#servicos" class="text-gray-700 hover:text-primary font-medium transition-colors">Serviços</a>
+<a href="#portfolio" class="text-gray-700 hover:text-primary font-medium transition-colors">Portfólio</a>
+<a href="#depoimentos" class="text-gray-700 hover:text-primary font-medium transition-colors">Depoimentos</a>
+<a href="#sobre" class="text-gray-700 hover:text-primary font-medium transition-colors">Sobre</a>
+<a href="#blog" class="text-gray-700 hover:text-primary font-medium transition-colors">Blog</a>
+<a href="https://wa.me/5589981137053?text=ola%20" data-readdy="true" class="text-gray-700 hover:text-primary font-medium transition-colors">Contato</a>
+</nav>
+<a href="#contato" class="hidden lg:inline-flex bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap">Solicite um Orçamento</a>
+<button class="lg:hidden w-10 h-10 flex items-center justify-center text-gray-700" id="menuToggle">
+<i class="ri-menu-line ri-lg"></i>
+</button>
+</div>
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="hidden lg:hidden bg-white w-full border-t">
+<div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+<a href="#servicos" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Serviços</a>
+<a href="#portfolio" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Portfólio</a>
+<a href="#depoimentos" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Depoimentos</a>
+<a href="#sobre" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Sobre</a>
+<a href="#blog" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Blog</a>
+<a href="https://wa.me/5589981137053?text=ola%20" data-readdy="true" class="text-gray-700 hover:text-primary font-medium py-2 transition-colors">Contato</a>
+<a href="#contato" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Solicite um Orçamento</a>
+</div>
+</div>
+</header>
+<!-- Hero Section -->
+<section class="relative pt-24 overflow-hidden">
+<div class="absolute inset-0 w-full h-full" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20data%20visualization%20dashboard%20with%20charts%2C%20graphs%2C%20business%20analytics%20in%20blue%20tones%2C%20abstract%20data%20elements%2C%20professional%20corporate%20style%2C%20clean%20design%2C%20high%20quality%203D%20rendering%20with%20soft%20lighting%20and%20shadows%2C%20minimalist%20style&width=1920&height=1080&seq=hero-bg-1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+<div class="relative w-full h-full min-h-[600px] flex items-center">
+<div class="container mx-auto px-4 py-16 md:py-24 flex flex-col md:flex-row items-center">
+<div class="w-full md:w-1/2 hero-gradient py-12 px-6 md:px-12 rounded-lg">
+<h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Transforme seus dados em decisões estratégicas</h1>
+<p class="text-lg text-gray-700 mb-8">Desenvolvemos soluções personalizadas de análise de dados e Business Intelligence para impulsionar o crescimento do seu negócio com insights acionáveis e visualizações impactantes.</p>
+<div class="flex flex-col sm:flex-row gap-4">
+<a href="#portfolio" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Veja um exemplo de dashboard</a>
+<a href="#contato" class="bg-white text-primary border border-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-50 transition-colors text-center whitespace-nowrap">Fale com um especialista</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Estatísticas -->
+<section class="bg-gray-50 py-12">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm text-center">
+<p class="text-4xl font-bold text-primary mb-2">98%</p>
+<p class="text-gray-700">de satisfação dos clientes</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm text-center">
+<p class="text-4xl font-bold text-primary mb-2">+250</p>
+<p class="text-gray-700">projetos entregues</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm text-center">
+<p class="text-4xl font-bold text-primary mb-2">35%</p>
+<p class="text-gray-700">aumento médio em ROI</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Serviços -->
+<section id="servicos" class="py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nossas Soluções em Análise de Dados</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">Oferecemos serviços completos para transformar seus dados em insights valiosos e decisões estratégicas para o seu negócio.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Serviço 1 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+<i class="ri-dashboard-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Dashboards Interativos</h3>
+<p class="text-gray-700 mb-4">Criamos painéis personalizados com Power BI, Google Data Studio e Excel para visualização de dados em tempo real.</p>
+<a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
+Saiba mais
+<i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+<!-- Serviço 2 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+<i class="ri-line-chart-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Análise de Campanhas</h3>
+<p class="text-gray-700 mb-4">Automatizamos a análise de campanhas de tráfego pago (Meta Ads, Google Ads) para otimizar seus investimentos.</p>
+<a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
+Saiba mais
+<i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+<!-- Serviço 3 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+<i class="ri-file-chart-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Relatórios Inteligentes</h3>
+<p class="text-gray-700 mb-4">Desenvolvemos relatórios visualmente impactantes que transformam dados complexos em informações claras.</p>
+<a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
+Saiba mais
+<i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+<!-- Serviço 4 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+<i class="ri-lightbulb-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Consultoria em BI</h3>
+<p class="text-gray-700 mb-4">Oferecemos consultoria especializada em inteligência de negócios e definição de indicadores de desempenho (KPIs).</p>
+<a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
+Saiba mais
+<i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+<!-- Serviço 5 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+<i class="ri-database-2-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Integração de Dados</h3>
+<p class="text-gray-700 mb-4">Integramos diferentes fontes de dados (SQL, APIs, Google Sheets, Excel) para uma visão unificada do seu negócio.</p>
+<a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
+Saiba mais
+<i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+<!-- Serviço 6 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+<div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-6">
+<i class="ri-shopping-bag-line ri-lg text-primary"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Produtos Digitais</h3>
+<p class="text-gray-700 mb-4">Criamos templates, eBooks e pacotes prontos para gestores de tráfego e analistas de dados.</p>
+<a href="#" class="text-primary font-medium inline-flex items-center hover:underline">
+Saiba mais
+<i class="ri-arrow-right-line ri-sm ml-1"></i>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Como Trabalhamos -->
+<section class="bg-gray-50 py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Como Trabalhamos</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">Nossa metodologia garante resultados eficientes e alinhados às suas necessidades de negócio.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div class="bg-white p-8 rounded-lg shadow-sm text-center">
+<div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="text-2xl font-bold text-primary">1</span>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Diagnóstico</h3>
+<p class="text-gray-700">Entendemos suas necessidades e objetivos de negócio para definir os melhores indicadores.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm text-center">
+<div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="text-2xl font-bold text-primary">2</span>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Planejamento</h3>
+<p class="text-gray-700">Desenvolvemos um plano estratégico para coleta, integração e visualização dos dados.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm text-center">
+<div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="text-2xl font-bold text-primary">3</span>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Implementação</h3>
+<p class="text-gray-700">Criamos as soluções personalizadas e integramos com suas fontes de dados existentes.</p>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm text-center">
+<div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+<span class="text-2xl font-bold text-primary">4</span>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-3">Acompanhamento</h3>
+<p class="text-gray-700">Oferecemos suporte contínuo e ajustes para garantir que você obtenha o máximo valor dos seus dados.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Portfólio -->
+<section id="portfolio" class="py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nosso Portfólio</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">Conheça alguns dos nossos projetos de sucesso em análise de dados e visualização.</p>
+</div>
+<div class="mb-8 flex flex-wrap justify-center gap-4">
+<button class="bg-primary text-white px-5 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap portfolio-filter active" data-filter="all">Todos</button>
+<button class="bg-white text-gray-700 border border-gray-300 px-5 py-2 !rounded-button font-medium hover:bg-gray-50 transition-colors whitespace-nowrap portfolio-filter" data-filter="dashboard">Dashboards</button>
+<button class="bg-white text-gray-700 border border-gray-300 px-5 py-2 !rounded-button font-medium hover:bg-gray-50 transition-colors whitespace-nowrap portfolio-filter" data-filter="relatorio">Relatórios</button>
+<button class="bg-white text-gray-700 border border-gray-300 px-5 py-2 !rounded-button font-medium hover:bg-gray-50 transition-colors whitespace-nowrap portfolio-filter" data-filter="integracao">Integrações</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Projeto 1 -->
+<div class="portfolio-item" data-category="dashboard">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
+<div class="h-60 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20business%20dashboard%20with%20KPI%20metrics%2C%20sales%20analytics%2C%20clean%20modern%20design%20with%20blue%20charts%20and%20graphs%2C%20corporate%20style%20visualization%2C%20high%20quality%20rendering&width=600&height=400&seq=portfolio-1&orientation=landscape" alt="Dashboard de Vendas" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Dashboard de Vendas</h3>
+<p class="text-gray-700 mb-4">Dashboard interativo para análise de performance de vendas com segmentação por região, produto e vendedor.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">Power BI</span>
+<a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Projeto 2 -->
+<div class="portfolio-item" data-category="relatorio">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
+<div class="h-60 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=digital%20marketing%20report%20with%20social%20media%20metrics%2C%20campaign%20performance%20data%2C%20ROI%20analysis%2C%20modern%20clean%20design%20with%20graphs%20and%20charts%2C%20professional%20business%20report&width=600&height=400&seq=portfolio-2&orientation=landscape" alt="Relatório de Marketing" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Relatório de Marketing</h3>
+<p class="text-gray-700 mb-4">Relatório automatizado para análise de campanhas de marketing digital com métricas de ROI e conversão.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">Google Data Studio</span>
+<a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Projeto 3 -->
+<div class="portfolio-item" data-category="integracao">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
+<div class="h-60 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=data%20integration%20system%20connecting%20multiple%20sources%2C%20API%20connections%2C%20database%20visualization%2C%20modern%20tech%20interface%20with%20blue%20elements%2C%20professional%20business%20software&width=600&height=400&seq=portfolio-3&orientation=landscape" alt="Integração de Dados" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Integração de Dados</h3>
+<p class="text-gray-700 mb-4">Sistema de integração entre ERP, CRM e plataformas de e-commerce para visão unificada do negócio.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">SQL + APIs</span>
+<a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Projeto 4 -->
+<div class="portfolio-item" data-category="dashboard">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
+<div class="h-60 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=financial%20analytics%20dashboard%20with%20budget%20tracking%2C%20expense%20analysis%2C%20profit%20margins%2C%20modern%20clean%20design%20with%20charts%20and%20financial%20metrics%2C%20professional%20business%20dashboard&width=600&height=400&seq=portfolio-4&orientation=landscape" alt="Dashboard Financeiro" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Dashboard Financeiro</h3>
+<p class="text-gray-700 mb-4">Painel de controle financeiro com análise de fluxo de caixa, margens e projeções para tomada de decisão.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">Power BI + Excel</span>
+<a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Projeto 5 -->
+<div class="portfolio-item" data-category="relatorio">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
+<div class="h-60 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=e-commerce%20performance%20report%20with%20sales%20analytics%2C%20customer%20behavior%20data%2C%20conversion%20funnel%2C%20modern%20clean%20design%20with%20charts%20and%20metrics%2C%20professional%20business%20report&width=600&height=400&seq=portfolio-5&orientation=landscape" alt="Análise de E-commerce" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Análise de E-commerce</h3>
+<p class="text-gray-700 mb-4">Relatório completo de performance de e-commerce com análise de funil de vendas e comportamento do cliente.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">Google Analytics + Data Studio</span>
+<a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Projeto 6 -->
+<div class="portfolio-item" data-category="integracao">
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100 hover:shadow-md transition-shadow">
+<div class="h-60 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=automated%20reporting%20system%20with%20data%20pipeline%20visualization%2C%20ETL%20process%2C%20scheduled%20reports%2C%20modern%20tech%20interface%20with%20blue%20elements%2C%20professional%20business%20software&width=600&height=400&seq=portfolio-6&orientation=landscape" alt="Automação de Relatórios" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Automação de Relatórios</h3>
+<p class="text-gray-700 mb-4">Sistema de automação para geração e distribuição de relatórios periódicos para diferentes departamentos.</p>
+<div class="flex justify-between items-center">
+<span class="text-sm text-gray-500">Python + Google Sheets</span>
+<a href="#" class="text-primary font-medium hover:underline">Ver detalhes</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<a href="#" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Ver todos os projetos</a>
+</div>
+</div>
+</section>
+<!-- CTA -->
+<section class="bg-primary py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Pronto para transformar seus dados em resultados?</h2>
+<p class="text-lg text-blue-100 mb-8">Entre em contato conosco para uma consulta gratuita e descubra como podemos ajudar seu negócio a tomar decisões mais inteligentes baseadas em dados.</p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<a href="#contato" class="bg-white text-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-100 transition-colors text-center whitespace-nowrap">Solicite um orçamento</a>
+<a href="#" class="bg-transparent text-white border border-white px-8 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Agende uma demonstração</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Depoimentos -->
+<section id="depoimentos" class="py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">O que nossos clientes dizem</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">Veja como nossas soluções têm ajudado empresas a transformar dados em resultados concretos.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Depoimento 1 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<div class="flex items-center mb-6">
+<div class="text-primary">
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+</div>
+</div>
+<p class="text-gray-700 mb-6">"Os dashboards desenvolvidos pela equipe transformaram completamente nossa visão sobre o negócio. Conseguimos identificar oportunidades que antes passavam despercebidas e aumentamos nossa eficiência operacional em 30%."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+<span class="text-gray-500 font-medium">RM</span>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900">Ricardo Mendes</h4>
+<p class="text-sm text-gray-600">Diretor Comercial, TechSolutions</p>
+</div>
+</div>
+</div>
+<!-- Depoimento 2 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<div class="flex items-center mb-6">
+<div class="text-primary">
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+</div>
+</div>
+<p class="text-gray-700 mb-6">"A análise automatizada de nossas campanhas de marketing trouxe insights valiosos que nos permitiram otimizar nosso investimento em mídia. O ROI aumentou em 45% no primeiro trimestre após a implementação."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+<span class="text-gray-500 font-medium">CM</span>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900">Carolina Martins</h4>
+<p class="text-sm text-gray-600">CMO, E-commerce Brasil</p>
+</div>
+</div>
+</div>
+<!-- Depoimento 3 -->
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<div class="flex items-center mb-6">
+<div class="text-primary">
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+<i class="ri-star-fill ri-lg"></i>
+</div>
+</div>
+<p class="text-gray-700 mb-6">"A integração de dados que realizaram entre nossos sistemas foi impecável. Agora temos uma visão unificada do cliente e conseguimos personalizar nossas estratégias com muito mais precisão."</p>
+<div class="flex items-center">
+<div class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4">
+<span class="text-gray-500 font-medium">AF</span>
+</div>
+<div>
+<h4 class="font-semibold text-gray-900">André Ferreira</h4>
+<p class="text-sm text-gray-600">CTO, Fintech Soluções</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Recursos Gratuitos -->
+<section class="bg-gray-50 py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Recursos Gratuitos</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">Acesse nossos materiais gratuitos para aprimorar suas habilidades em análise de dados.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- Recurso 1 -->
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20e-book%20cover%20about%20data%20visualization%20best%20practices%2C%20modern%20design%20with%20blue%20elements%2C%20business%20analytics%20theme%2C%20high%20quality%20rendering&width=600&height=400&seq=resource-1&orientation=landscape" alt="E-book Visualização de Dados" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">E-book: Visualização de Dados</h3>
+<p class="text-gray-700 mb-4">Aprenda as melhores práticas para criar visualizações de dados eficientes e impactantes.</p>
+<a href="#" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Baixar grátis</a>
+</div>
+</div>
+<!-- Recurso 2 -->
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20template%20preview%20for%20Excel%20dashboard%2C%20business%20analytics%20template%20with%20charts%20and%20KPIs%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=resource-2&orientation=landscape" alt="Template Excel" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Template: Dashboard Excel</h3>
+<p class="text-gray-700 mb-4">Template pronto para criar dashboards profissionais no Excel com fórmulas e gráficos dinâmicos.</p>
+<a href="#" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Baixar grátis</a>
+</div>
+</div>
+<!-- Recurso 3 -->
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20webinar%20preview%20about%20digital%20marketing%20analytics%2C%20online%20course%20with%20data%20charts%20and%20metrics%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=resource-3&orientation=landscape" alt="Webinar Marketing Digital" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Webinar: Análise de Marketing</h3>
+<p class="text-gray-700 mb-4">Assista nossa masterclass sobre como analisar e otimizar campanhas de marketing digital.</p>
+<a href="#" class="bg-primary text-white px-6 py-2 !rounded-button font-medium hover:bg-blue-600 transition-colors inline-block whitespace-nowrap">Assistir agora</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Blog -->
+<section id="blog" class="py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Blog e Insights</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">Confira nossos artigos mais recentes sobre análise de dados, business intelligence e performance digital.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Artigo 1 -->
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20blog%20post%20image%20about%20data-driven%20decision%20making%2C%20business%20analytics%20concept%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=blog-1&orientation=landscape" alt="Tomada de Decisão" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="flex items-center mb-4">
+<span class="text-sm text-gray-500">23 Abr, 2025</span>
+<span class="mx-2 text-gray-300">•</span>
+<span class="text-sm text-gray-500">8 min de leitura</span>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Como implementar uma cultura de decisões baseadas em dados</h3>
+<p class="text-gray-700 mb-4">Descubra estratégias eficientes para transformar sua empresa em uma organização orientada por dados...</p>
+<a href="#" class="text-primary font-medium hover:underline">Ler mais</a>
+</div>
+</div>
+<!-- Artigo 2 -->
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20blog%20post%20image%20about%20KPI%20dashboard%20design%2C%20business%20metrics%20visualization%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=blog-2&orientation=landscape" alt="KPIs Essenciais" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="flex items-center mb-4">
+<span class="text-sm text-gray-500">15 Abr, 2025</span>
+<span class="mx-2 text-gray-300">•</span>
+<span class="text-sm text-gray-500">6 min de leitura</span>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">10 KPIs essenciais para monitorar em seu e-commerce</h3>
+<p class="text-gray-700 mb-4">Conheça os indicadores-chave que todo gestor de e-commerce deve acompanhar para maximizar resultados...</p>
+<a href="#" class="text-primary font-medium hover:underline">Ler mais</a>
+</div>
+</div>
+<!-- Artigo 3 -->
+<div class="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=professional%20blog%20post%20image%20about%20digital%20marketing%20analytics%2C%20campaign%20performance%20data%2C%20modern%20design%20with%20blue%20elements%2C%20high%20quality%20rendering&width=600&height=400&seq=blog-3&orientation=landscape" alt="Marketing Digital" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="flex items-center mb-4">
+<span class="text-sm text-gray-500">8 Abr, 2025</span>
+<span class="mx-2 text-gray-300">•</span>
+<span class="text-sm text-gray-500">5 min de leitura</span>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">Como otimizar suas campanhas de Google Ads com análise de dados</h3>
+<p class="text-gray-700 mb-4">Aprenda técnicas avançadas para analisar e melhorar o desempenho das suas campanhas de tráfego pago...</p>
+<a href="#" class="text-primary font-medium hover:underline">Ler mais</a>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<a href="#" class="bg-white text-primary border border-primary px-8 py-3 !rounded-button font-medium hover:bg-gray-50 transition-colors inline-block whitespace-nowrap">Ver todos os artigos</a>
+</div>
+</div>
+</section>
+<!-- Sobre Nós -->
+<section id="sobre" class="bg-gray-50 py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+<div>
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Sobre a DataInsight</h2>
+<p class="text-lg text-gray-700 mb-6">Somos uma empresa especializada em análise de dados e business intelligence, com foco em transformar dados em insights acionáveis para nossos clientes.</p>
+<p class="text-lg text-gray-700 mb-6">Nossa equipe é formada por especialistas em análise de dados, estatística, marketing digital e desenvolvimento de software, com ampla experiência em diversos segmentos de mercado.</p>
+<p class="text-lg text-gray-700 mb-6">Nosso objetivo é democratizar o acesso a análises de dados avançadas, permitindo que empresas de todos os portes tomem decisões mais inteligentes baseadas em informações concretas.</p>
+<div class="flex flex-col sm:flex-row gap-4 mt-8">
+<a href="#contato" class="bg-primary text-white px-6 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors text-center whitespace-nowrap">Entre em contato</a>
+<a href="#" class="bg-white text-primary border border-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-50 transition-colors text-center whitespace-nowrap">Conheça nossa equipe</a>
+</div>
+</div>
+<div>
+<img src="https://readdy.ai/api/search-image?query=professional%20data%20analytics%20team%20working%20together%20in%20modern%20office%2C%20diverse%20team%20analyzing%20charts%20on%20screens%2C%20business%20meeting%20with%20data%20visualization%2C%20high%20quality%20corporate%20photography%20style&width=800&height=600&seq=about-us&orientation=landscape" alt="Nossa equipe" class="w-full h-auto rounded-lg shadow-md">
+</div>
+</div>
+</div>
+</section>
+<!-- Contato -->
+<section id="contato" class="py-16 md:py-24">
+<div class="container mx-auto px-4">
+<div class="text-center mb-16">
+<h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Entre em Contato</h2>
+<p class="text-lg text-gray-700 max-w-3xl mx-auto">Estamos prontos para ajudar sua empresa a transformar dados em resultados. Preencha o formulário abaixo e entraremos em contato em até 24 horas.</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<form>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div>
+<label for="nome" class="block text-gray-700 font-medium mb-2">Nome completo</label>
+<input type="text" id="nome" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="Seu nome">
+</div>
+<div>
+<label for="email" class="block text-gray-700 font-medium mb-2">E-mail</label>
+<input type="email" id="email" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="seu@email.com">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div>
+<label for="telefone" class="block text-gray-700 font-medium mb-2">Telefone</label>
+<input type="tel" id="telefone" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="(00) 00000-0000">
+</div>
+<div>
+<label for="empresa" class="block text-gray-700 font-medium mb-2">Empresa</label>
+<input type="text" id="empresa" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="Nome da sua empresa">
+</div>
+</div>
+<div class="mb-6">
+<label for="servico" class="block text-gray-700 font-medium mb-2">Serviço de interesse</label>
+<div class="relative">
+<select id="servico" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700 appearance-none pr-8">
+<option value="" selected disabled>Selecione uma opção</option>
+<option value="dashboards">Dashboards Interativos</option>
+<option value="analise">Análise de Campanhas</option>
+<option value="relatorios">Relatórios Inteligentes</option>
+<option value="consultoria">Consultoria em BI</option>
+<option value="integracao">Integração de Dados</option>
+<option value="produtos">Produtos Digitais</option>
+<option value="outros">Outros</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<i class="ri-arrow-down-s-line text-gray-500"></i>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<label for="mensagem" class="block text-gray-700 font-medium mb-2">Mensagem</label>
+<textarea id="mensagem" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded focus:border-primary text-gray-700" placeholder="Descreva sua necessidade..."></textarea>
+</div>
+<div class="flex items-center mb-6">
+<input type="checkbox" id="newsletter" class="custom-checkbox">
+<label for="newsletter" class="ml-2 text-gray-700">Desejo receber novidades e conteúdos exclusivos por e-mail</label>
+</div>
+<button type="submit" class="bg-primary text-white px-8 py-3 !rounded-button font-medium hover:bg-blue-600 transition-colors whitespace-nowrap">Enviar mensagem</button>
+</form>
+</div>
+<div>
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100 mb-8">
+<h3 class="text-xl font-semibold text-gray-900 mb-6">Informações de Contato</h3>
+<div class="flex items-start mb-6">
+<div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+<i class="ri-mail-line text-primary"></i>
+</div>
+<div>
+<p class="font-medium text-gray-900 mb-1">E-mail</p>
+<a href="mailto:contato@datainsight.com.br" class="text-gray-700 hover:text-primary">contato@datainsight.com.br</a>
+</div>
+</div>
+<div class="flex items-start mb-6">
+<div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+<i class="ri-phone-line text-primary"></i>
+</div>
+<div>
+<p class="font-medium text-gray-900 mb-1">Telefone</p>
+<a href="tel:+551199999999" class="text-gray-700 hover:text-primary">(11) 9999-9999</a>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+<i class="ri-map-pin-line text-primary"></i>
+</div>
+<div>
+<p class="font-medium text-gray-900 mb-1">Endereço</p>
+<p class="text-gray-700">Av. Paulista, 1000, Bela Vista<br>São Paulo - SP, 01310-100</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-8 rounded-lg shadow-sm border border-gray-100">
+<h3 class="text-xl font-semibold text-gray-900 mb-6">Horário de Atendimento</h3>
+<div class="flex justify-between mb-3">
+<span class="text-gray-700">Segunda a Sexta</span>
+<span class="font-medium text-gray-900">9h às 18h</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-700">Sábado</span>
+<span class="font-medium text-gray-900">9h às 13h</span>
+</div>
+<hr class="my-6 border-gray-200">
+<h3 class="text-xl font-semibold text-gray-900 mb-6">Redes Sociais</h3>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
+<i class="ri-linkedin-fill text-primary"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
+<i class="ri-instagram-line text-primary"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
+<i class="ri-youtube-line text-primary"></i>
+</a>
+<a href="#" class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors">
+<i class="ri-facebook-fill text-primary"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter -->
+<section class="bg-gray-50 py-16">
+<div class="container mx-auto px-4">
+<div class="max-w-3xl mx-auto bg-primary rounded-lg overflow-hidden shadow-md">
+<div class="p-8 md:p-12">
+<div class="text-center mb-8">
+<h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Assine nossa newsletter</h2>
+<p class="text-blue-100">Receba dicas, insights e novidades sobre análise de dados e business intelligence diretamente no seu e-mail.</p>
+</div>
+<form class="flex flex-col md:flex-row gap-4">
+<input type="email" placeholder="Seu melhor e-mail" class="flex-grow px-4 py-3 rounded border-none text-gray-700 text-sm">
+<button type="submit" class="bg-white text-primary px-6 py-3 !rounded-button font-medium hover:bg-gray-100 transition-colors whitespace-nowrap">Inscrever-se</button>
+</form>
+</div>
+</div>
+</div>
+</section>
+<!-- Footer -->
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+<div>
+<h3 class="font-['Pacifico'] text-2xl mb-6">DataInsight</h3>
+<p class="text-gray-400 mb-6">Transformando dados em decisões estratégicas para impulsionar o crescimento do seu negócio.</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-linkedin-fill ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-instagram-line ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-youtube-line ri-lg"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-white transition-colors">
+<i class="ri-facebook-fill ri-lg"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-6">Serviços</h4>
+<ul class="space-y-3">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Dashboards Interativos</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Análise de Campanhas</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Relatórios Inteligentes</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Consultoria em BI</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Integração de Dados</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Produtos Digitais</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-6">Links Rápidos</h4>
+<ul class="space-y-3">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Sobre Nós</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Portfólio</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Recursos Gratuitos</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contato</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">Trabalhe Conosco</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-6">Contato</h4>
+<ul class="space-y-3">
+<li class="flex items-start">
+<i class="ri-map-pin-line ri-lg mr-3 mt-1 text-gray-400"></i>
+<span class="text-gray-400">Av. Paulista, 1000, Bela Vista<br>São Paulo - SP, 01310-100</span>
+</li>
+<li class="flex items-center">
+<i class="ri-phone-line ri-lg mr-3 text-gray-400"></i>
+<a href="tel:+551199999999" class="text-gray-400 hover:text-white transition-colors">(11) 9999-9999</a>
+</li>
+<li class="flex items-center">
+<i class="ri-mail-line ri-lg mr-3 text-gray-400"></i>
+<a href="mailto:contato@datainsight.com.br" class="text-gray-400 hover:text-white transition-colors">contato@datainsight.com.br</a>
+</li>
+</ul>
+</div>
+</div>
+<hr class="border-gray-800 mb-8">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-500 mb-4 md:mb-0">© 2025 DataInsight. Todos os direitos reservados.</p>
+<div class="flex space-x-6">
+<a href="#" class="text-gray-500 hover:text-white transition-colors">Termos de Uso</a>
+<a href="#" class="text-gray-500 hover:text-white transition-colors">Política de Privacidade</a>
+<a href="#" class="text-gray-500 hover:text-white transition-colors">Cookies</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- Chat Flutuante -->
+<div class="fixed bottom-6 right-6 z-50">
+<button class="w-14 h-14 bg-primary rounded-full flex items-center justify-center shadow-lg hover:bg-blue-600 transition-colors" id="chatButton">
+<i class="ri-message-3-line ri-lg text-white"></i>
+</button>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+menuToggle.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Portfolio Filtering
+const portfolioFilters = document.querySelectorAll('.portfolio-filter');
+const portfolioItems = document.querySelectorAll('.portfolio-item');
+portfolioFilters.forEach(filter => {
+filter.addEventListener('click', function() {
+// Remove active class from all filters
+portfolioFilters.forEach(f => f.classList.remove('active', 'bg-primary', 'text-white'));
+portfolioFilters.forEach(f => f.classList.add('bg-white', 'text-gray-700', 'border', 'border-gray-300'));
+// Add active class to clicked filter
+this.classList.add('active', 'bg-primary', 'text-white');
+this.classList.remove('bg-white', 'text-gray-700', 'border', 'border-gray-300');
+const filterValue = this.getAttribute('data-filter');
+portfolioItems.forEach(item => {
+if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+item.style.display = 'block';
+} else {
+item.style.display = 'none';
+}
+});
+});
+});
+});
+document.addEventListener('DOMContentLoaded', function() {
+// Chat Button
+const chatButton = document.getElementById('chatButton');
+chatButton.addEventListener('click', function() {
+alert('Funcionalidade de chat em desenvolvimento. Em breve estaremos disponíveis para atendê-lo em tempo real!');
+});
+});
+</script>
 </body>
 </html>
